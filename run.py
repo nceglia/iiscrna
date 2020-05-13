@@ -12,3 +12,15 @@ def expand_node():
     result = ii.expand_node(gene)
     return jsonify(result)
 
+@app.route('/genes')
+def get_genes():
+    global ii
+    genes = ii.get_genes()
+    return jsonify(genes=genes)
+
+@app.route('/expands')
+def expand_nodes():
+    global ii
+    genes = request.args.get('genes').split(",")
+    result = ii.expand_nodes(genes)
+    return jsonify(result)

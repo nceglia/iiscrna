@@ -37,6 +37,30 @@ class Interactions(object):
                     _nodes.append(edge["target"])
         return {"nodes": _nodes, "links": _edges}
 
+    def check_edge(self, edges, edge):
+        for _edge in edges:
+            if _edge == edge:
+                return True
+        return False 
+
+    def expand_nodes(self, gene_names):
+        _nodes = list()
+        _edges = list()
+        for gene_name in gene_names:
+            print(gene_name)
+            for edge in self.edges:
+                if edge["source"] == gene_name or edge["target"] == gene_name:
+                    if not self.check_edge(_edges, edge):
+                        _edges.append(edge)
+                    if edge["source"] not in _nodes:
+                        _nodes.append(edge["source"])
+                    if edge["target"] not in _nodes:
+                        _nodes.append(edge["target"])
+        return {"nodes": _nodes, "links": _edges}
+
+    def get_genes(self):
+        return [node["id"] for node in self.nodes]
+
     def js_format(self, filename):
         data = {"nodes": self.nodes, "links": self.edges}
         output = open(filename,"w")
