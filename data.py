@@ -23,6 +23,9 @@ class Interactions(object):
             for i, interaction in enumerate(row[celltypes:]):
                 if interaction.strip() != "":
                     edge_label = self.header[i+celltypes].replace("|"," - ").replace("."," ") 
+                    edge_label = edge_label.replace("cell","").replace("Vascular","").replace("Exhausted","Exh").replace("Activated", "Act").replace("Mesothelial","Meso").replace("Ovarian","").replace("Monocyte Macrophage","Macr")
+                    edge_label = edge_label.replace(" cancer", "Canc").replace(" ","")
+                    print(edge_label.strip())
                     self.edges.append({ "source": wrappedrow["gene_a"], "target": wrappedrow["gene_b"], "value": edge_label},)
     
     def expand_node(self, gene_name):
