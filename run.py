@@ -1,5 +1,8 @@
 from flask import Flask, jsonify, render_template, request
+from flask_cors import CORS
+
 app = Flask(__name__, static_folder='static')
+CORS(app)
 
 from data import Interactions
 
