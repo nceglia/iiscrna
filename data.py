@@ -26,7 +26,8 @@ class Interactions(object):
                     edge_label = edge_label.replace("cell","").replace("Vascular","").replace("Exhausted","Exh").replace("Activated", "Act").replace("Mesothelial","Meso").replace("Ovarian","").replace("Monocyte Macrophage","Macr")
                     edge_label = edge_label.replace(" cancer", "Canc").replace(" ","")
                     print(edge_label.strip())
-                    self.edges.append({ "source": wrappedrow["gene_a"], "target": wrappedrow["gene_b"], "value": edge_label},)
+            for i, interaction in
+            #self.edges.append({ "source": wrappedrow["gene_a"], "target": wrappedrow["gene_b"], "value": edge_label})
     
     def expand_node(self, gene_name):
         _nodes = list()
@@ -42,7 +43,7 @@ class Interactions(object):
 
     def check_edge(self, edges, edge):
         for _edge in edges:
-            if _edge == edge:
+            if _edge["source"] == edge["source"] and _edge["target"] == edge["target"]:
                 return True
         return False 
 
