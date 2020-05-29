@@ -1,5 +1,5 @@
 import json
-import networkx
+import networkx as nx
 import pickle
 
 class Interactions(object):
