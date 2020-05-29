@@ -6,7 +6,7 @@ class Interactions(object):
     
     def __init__(self, filename):
         MG = pickle.load( open( "interaction_network_occ_tcell.p", "rb" ) )
-        method = nx.get_node_attributes(MG,'type')
+        self.rl = nx.get_node_attributes(MG,'type')
         self.nodes = list()
         self.edges = list()
         for node in MG.nodes():
@@ -45,6 +45,18 @@ class Interactions(object):
             if _edge["source"] == edge["source"] and _edge["target"] == edge["target"]:
                 return True
         return False 
+
+    def check_edge(self, edge):
+        for _edge in edges:
+            if _edge["source"] == edge["source"] and _edge["target"] == edge["target"]:
+                return True
+        return False 
+
+    def node_data(self):
+        rl_type = dict()
+        for node in self.nodes:
+            rl_type[node] = self.rl[node]
+        return rl_type
 
     def expand_nodes(self, gene_names):
         _nodes = list()

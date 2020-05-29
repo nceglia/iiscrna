@@ -21,6 +21,12 @@ def get_genes():
     genes = ii.get_genes()
     return jsonify(genes=genes)
 
+@app.route('/nodes')
+def get_genes():
+    global ii
+    nodes = ii.node_data()
+    return jsonify(nodes)
+
 @app.route('/expands')
 def expand_nodes():
     global ii
