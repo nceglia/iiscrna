@@ -6,11 +6,11 @@ class Interactions(object):
     
     def __init__(self, filename):
         MG = pickle.load( open( "interaction_network_occ_tcell.p", "rb" ) )
-        method = nx.get_node_attributes(MG,'method')
+        method = nx.get_node_attributes(MG,'type')
         self.nodes = list()
         self.edges = list()
         for node in MG.nodes():
-            self.nodes.append({"id":node,method[node]})
+            self.nodes.append({"id":node,"type":method[node]})
         for edge in MG.edges(keys=True):
             edge_count = 0
             for oedge in MG.edges(keys=True):
