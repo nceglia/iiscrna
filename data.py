@@ -19,6 +19,7 @@ class Interactions(object):
             new_edge = { "source": edge[0], "target": edge[0], "value": edge_count}
             if not self.check_edge(new_edge):
                 self.edges.append(new_edge)
+        print(self.edges)
     
     def expand_node(self, gene_name):
         _nodes = list()
