@@ -5,9 +5,9 @@ import pickle
 class Interactions(object):
     
     def __init__(self):
+        MG = pickle.load( open( "interaction_network_occ_tcell.p", "rb" ) )
         patient_annot = nx.get_edge_attributes(MG,'patient')
         tissue_annot = nx.get_edge_attributes(MG,'tissue')
-        MG = pickle.load( open( "interaction_network_occ_tcell.p", "rb" ) )
         self.rl = nx.get_node_attributes(MG,'type')
         self.nodes = list()
         self.edges = list()
