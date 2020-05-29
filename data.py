@@ -15,8 +15,6 @@ class Interactions(object):
             edge_count = 0
             for oedge in MG.edges(keys=True):
                 if edge[:2] == oedge[:2]:
-                    patient = patient_annot[oedge]
-                    patient_set.add(patient)
                     edge_count += 1
             new_edge = { "source": edge[0], "target": wrappedrow[0], "value": edge_count}
             if not self.check_edge(new_edge):
