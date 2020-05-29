@@ -17,10 +17,11 @@ class Interactions(object):
                 if edge[:2] == oedge[:2]:
                     edge_count += 1
             new_edge = { "source": edge[0], "target": edge[0], "value": edge_count}
-            if not self.check_edge(new_edge):
+            if not self.cehck_dup(new_edge):
                 self.edges.append(new_edge)
         print(self.edges)
         print(len(self.edges))
+        
     def expand_node(self, gene_name):
         _nodes = list()
         _edges = list()
@@ -33,8 +34,14 @@ class Interactions(object):
                     _nodes.append(edge["target"])
         return {"nodes": _nodes, "links": _edges}
 
-    def check_edge(self, edge):
+    def check_dup(self, edge):
         for _edge in self.edges:
+            if _edge["source"] == edge["source"] and _edge["target"] == edge["target"]:
+                return True
+        return False 
+
+    def check_edge(self, edges, edge):
+        for _edge in edges:
             if _edge["source"] == edge["source"] and _edge["target"] == edge["target"]:
                 return True
         return False 
@@ -46,7 +53,7 @@ class Interactions(object):
             print(gene_name)
             for edge in self.edges:
                 if edge["source"] == gene_name or edge["target"] == gene_name:
-                    if not self.check_edge(edge):
+                    if not self.check_edge(_edges, edge):
                         _edges.append(edge)
                     if edge["source"] not in _nodes:
                         _nodes.append(edge["source"])
