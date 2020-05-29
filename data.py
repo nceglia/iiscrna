@@ -16,7 +16,7 @@ class Interactions(object):
             for oedge in MG.edges(keys=True):
                 if edge[:2] == oedge[:2]:
                     edge_count += 1
-            new_edge = { "source": edge[0], "target": edge[0], "value": edge_count}
+            new_edge = { "source": edge[0], "target": edge[1], "value": edge_count}
             if not self.check_dup(new_edge):
                 self.edges.append(new_edge)
         print(self.edges)
