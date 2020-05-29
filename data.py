@@ -22,8 +22,8 @@ class Interactions(object):
             for oedge in MG.edges(keys=True):
                 if edge[:2] == oedge[:2]:
                     edge_count += 1
-                    patients.add(patient_annot[edge])
-                    sites.add(tissue_annot[edge])
+                    patients.add(patient_annot[oedge])
+                    sites.add(tissue_annot[oedge])
             patients = list(patients)
             sites = list(sites)
             new_edge = { "source": edge[0], "target": edge[1], "value": edge_count, "patients": patients, "sites": sites}
