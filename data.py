@@ -1,32 +1,26 @@
 import json
+import networkx
+import pickle
 
 class Interactions(object):
     
     def __init__(self, filename):
-        rows = open(filename,"r").read().splitlines()
-        self.header = rows.pop(0).split("\t")
-        celltypes = self.header.index("rank") + 1
+        MG = pickle.load( open( "interaction_network_occ_tcell.p", "rb" ) )
+        method = nx.get_node_attributes(MG,'method')
         self.nodes = list()
         self.edges = list()
-        self.visisted = set()
-        for row in rows:
-            row = row.split("\t")
-            wrappedrow = dict(zip(self.header,row))
-            if str(wrappedrow["gene_b"]).strip() == "": continue
-            if str(wrappedrow["gene_a"]).strip() == "": continue
-            if str(wrappedrow["gene_a"]).strip() not in self.visisted:
-                self.nodes.append({ "id": str(wrappedrow["gene_a"]), "group": 0 })
-                self.visisted.add(str(wrappedrow["gene_a"]).strip())
-            if str(wrappedrow["gene_b"]).strip() not in self.visisted:
-                self.nodes.append({ "id": str(wrappedrow["gene_b"]), "group": 0 })
-                self.visisted.add(str(wrappedrow["gene_b"]).strip())
-            for i, interaction in enumerate(row[celltypes:]):
-                if interaction.strip() != "":
-                    edge_label = self.header[i+celltypes].replace("|"," - ").replace("."," ") 
-                    edge_label = edge_label.replace("cell","").replace("Vascular","").replace("Exhausted","Exh").replace("Activated", "Act").replace("Mesothelial","Meso").replace("Ovarian","").replace("Monocyte Macrophage","Macr")
-                    edge_label = edge_label.replace(" cancer", "Canc").replace(" ","")
-                    print(edge_label.strip())
-                    self.edges.append({ "source": wrappedrow["gene_a"], "target": wrappedrow["gene_b"], "value": edge_label})
+        for node in MG.nodes():
+            self.nodes.append({"id":node,method[node]})
+        for edge in MG.edges(keys=True):
+            edge_count = 0
+            for oedge in MG.edges(keys=True):
+                if edge[:2] == oedge[:2]:
+                    patient = patient_annot[oedge]
+                    patient_set.add(patient)
+                    edge_count += 1
+            new_edge = { "source": edge[0], "target": wrappedrow[0], "value": edge_count}
+            if not self.check_edge(new_edge):
+                self.edges.append(new_edge)
     
     def expand_node(self, gene_name):
         _nodes = list()
@@ -40,8 +34,8 @@ class Interactions(object):
                     _nodes.append(edge["target"])
         return {"nodes": _nodes, "links": _edges}
 
-    def check_edge(self, edges, edge):
-        for _edge in edges:
+    def check_edge(self, edge):
+        for _edge in self.edges:
             if _edge["source"] == edge["source"] and _edge["target"] == edge["target"]:
                 return True
         return False 
