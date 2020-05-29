@@ -45,7 +45,7 @@ class Interactions(object):
             print(gene_name)
             for edge in self.edges:
                 if edge["source"] == gene_name or edge["target"] == gene_name:
-                    if not self.check_edge(_edges, edge):
+                    if not self.check_edge(edge):
                         _edges.append(edge)
                     if edge["source"] not in _nodes:
                         _nodes.append(edge["source"])
