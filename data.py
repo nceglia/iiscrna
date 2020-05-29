@@ -5,19 +5,28 @@ import pickle
 class Interactions(object):
     
     def __init__(self):
+        patient_annot = nx.get_edge_attributes(MG,'patient')
+        tissue_annot = nx.get_edge_attributes(MG,'tissue')
         MG = pickle.load( open( "interaction_network_occ_tcell.p", "rb" ) )
         self.rl = nx.get_node_attributes(MG,'type')
         self.nodes = list()
         self.edges = list()
         for node in MG.nodes():
-            print(node)
             self.nodes.append({"id":node,"type":self.rl[node]})
         for edge in MG.edges(keys=True):
             edge_count = 0
+            patients = set()
+            sites = set()
+            sites.add(tissue_annot[edge])
+            patients.add(patient_annot[edge])
             for oedge in MG.edges(keys=True):
                 if edge[:2] == oedge[:2]:
                     edge_count += 1
-            new_edge = { "source": edge[0], "target": edge[1], "value": edge_count}
+                    patients.add(patient_annot[edge])
+                    sites.add(tissue_annot[edge])
+            patients = list(patients)
+            sites = list(sites)
+            new_edge = { "source": edge[0], "target": edge[1], "value": edge_count, "patients": patients, "sites": sites}
             if not self.check_dup(new_edge):
                 self.edges.append(new_edge)
         
