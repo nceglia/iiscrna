@@ -10,7 +10,7 @@ class Interactions(object):
         self.nodes = list()
         self.edges = list()
         for node in MG.nodes():
-            self.nodes.append({"id":node,"type":method[node]})
+            self.nodes.append({"id":node,"type":self.rl[node]})
         for edge in MG.edges(keys=True):
             edge_count = 0
             for oedge in MG.edges(keys=True):
