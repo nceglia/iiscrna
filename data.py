@@ -55,7 +55,7 @@ class Interactions(object):
     def node_data(self):
         rl_type = dict()
         for node in self.nodes:
-            rl_type[node] = self.rl[node]
+            rl_type[node] = self.rl[node["id"]]
         return rl_type
 
     def expand_nodes(self, gene_names):
