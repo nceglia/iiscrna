@@ -4,7 +4,7 @@ import pickle
 
 class Interactions(object):
     
-    def __init__(self, filename):
+    def __init__(self):
         MG = pickle.load( open( "interaction_network_occ_tcell.p", "rb" ) )
         self.rl = nx.get_node_attributes(MG,'type')
         self.nodes = list()
@@ -54,7 +54,7 @@ class Interactions(object):
     def node_data(self):
         rl_type = dict()
         for node in self.nodes:
-            rl_type[node] = self.rl[node["id"]]
+            rl_type[node["id"]] = self.rl[node["id"]]
         return rl_type
 
     def expand_nodes(self, gene_names):

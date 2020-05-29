@@ -6,7 +6,7 @@ CORS(app)
 
 from data import Interactions
 
-ii = Interactions("data/significant_means.txt")
+ii = Interactions()
 
 @app.route('/expand')
 def expand_node():
