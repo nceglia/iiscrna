@@ -17,7 +17,7 @@ class Interactions(object):
                 if edge[:2] == oedge[:2]:
                     edge_count += 1
             new_edge = { "source": edge[0], "target": edge[0], "value": edge_count}
-            if not self.cehck_dup(new_edge):
+            if not self.check_dup(new_edge):
                 self.edges.append(new_edge)
         print(self.edges)
         print(len(self.edges))
