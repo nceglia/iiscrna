@@ -10,6 +10,7 @@ class Interactions(object):
         self.nodes = list()
         self.edges = list()
         for node in MG.nodes():
+            print(node)
             self.nodes.append({"id":node,"type":self.rl[node]})
         for edge in MG.edges(keys=True):
             edge_count = 0
@@ -19,8 +20,6 @@ class Interactions(object):
             new_edge = { "source": edge[0], "target": edge[1], "value": edge_count}
             if not self.check_dup(new_edge):
                 self.edges.append(new_edge)
-        print(self.edges)
-        print(len(self.edges))
         
     def expand_node(self, gene_name):
         _nodes = list()
