@@ -20,7 +20,7 @@ class Interactions(object):
             if not self.check_edge(new_edge):
                 self.edges.append(new_edge)
         print(self.edges)
-    
+        print(len(self.edges))
     def expand_node(self, gene_name):
         _nodes = list()
         _edges = list()
