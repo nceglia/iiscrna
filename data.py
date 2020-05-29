@@ -45,12 +45,6 @@ class Interactions(object):
                 return True
         return False 
 
-    def check_edge(self, edge):
-        for _edge in edges:
-            if _edge["source"] == edge["source"] and _edge["target"] == edge["target"]:
-                return True
-        return False 
-
     def node_data(self):
         rl_type = dict()
         for node in self.nodes:
